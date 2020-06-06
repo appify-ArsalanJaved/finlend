@@ -10,9 +10,10 @@ const emailQuestion = document.querySelector('#emailQuestion')
 const nameQuestion = document.querySelector('#nameQuestion');
 const messageQuestionVal = document.querySelector('#message');
 
-const usernameLogin = document.querySelector('#usernameLogin');
+const emailLogin = document.querySelector('#emailLogin');
 const passwordLogin = document.querySelector('#passwordLogin');
 
+if(btnQuestion)
 btnQuestion.addEventListener('click', () => {
     let email = emailQuestion.value;
     let name = nameQuestion.value;
@@ -33,9 +34,12 @@ btnQuestion.addEventListener('click', () => {
         },
         body: JSON.stringify(contact),
     }
-    fetch('/contact', options);
+    fetch('/contact', options).then(res=>{
+        console.log(res);
+    });
 });
 
+if(btn)
 btn.addEventListener('click', () => {
     let email = emailVal.value;
     let name = nameVal.value;
@@ -59,25 +63,59 @@ btn.addEventListener('click', () => {
     fetch('/contact', options);
 });
 
-btnLogin.addEventListener('click', () => {
-    let username = usernameLogin.value;
-    let password = passwordLogin.value;
-    console.log('username: ', username);
-    console.log('password: ', password);
 
-    user = {
-        username: username,
-        password: password
+if(btnLogin)
+btnLogin.addEventListener('click', () => {
+
+    try {
+        
+        invalidMessage(false);
+        let username = emailLogin.value;
+        let password = passwordLogin.value;
+        console.log('username: ', username);
+        console.log('password: ', password);
+
+        user = {
+            username: username,
+            password: password
+        }
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user),
+        }
+        fetch('/login', options).then(response => response.text())
+        .then((body) => {
+            try {
+                var obj = JSON.parse(body);
+                if(obj)
+                   location.replace(location.origin+"/back-office");
+                else
+                    invalidMessage();
+            } catch (error) {
+                invalidMessage();
+            }
+          
+        })
+
+    } catch (error) {
+        console.log(error);  
     }
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user),
-    }
-    fetch('/user', options);
+    
+
+    
 });
+
+function invalidMessage(is_show=true)
+{
+    if(is_show)
+       document.getElementById('error_message').style.display = "block";
+    else
+       document.getElementById('error_message').style.display = "none";
+}
+
 
 
 

@@ -618,6 +618,13 @@
   padding-bottom: 0;
 }
 
+.error_message{
+  color: red;
+  text-align: center;
+  font-weight: 600;
+  font-size: 12px;
+}
+
 @media screen and (max-width: 991px) {
   .section-navbars .navbar-collapse {
     display: none !important;
