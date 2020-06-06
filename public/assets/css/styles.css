@@ -17,7 +17,7 @@
 .product-list {
     text-align: left;
     line-height: 30px;
-    color: white;
+    color: black;
     font-size: 17px;
 }
 
@@ -33,5 +33,12 @@
 
 .back-office-tabs {
     font-weight: bold;
+}
+
+.divider {
+    width: 90px;
+    height: 5px;
+    margin: 10px 0px;
+    background-color: #6A7E88;
 }
 
